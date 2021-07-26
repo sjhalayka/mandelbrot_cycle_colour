@@ -227,8 +227,23 @@ void write_RGB_tga(const char* const filename, const size_t width, const size_t 
 
 int main(void)
 {
+    const size_t cap_size = 20;
+
+    vector<RGB> colours(cap_size);
+
+    for (size_t i = 0; i < cap_size; i++)
+    {
+        colours[i].r = rand() % 256;
+        colours[i].g = rand() % 256;
+        colours[i].b = rand() % 256;
+    }
+
+
+
+
+
     // Max TGA size is 65535x65535 pixels
-    const unsigned short int res = 6000;
+    const unsigned short int res = 1000;
 
     const float x_grid_max = 1.5;
     const float x_grid_min = -2.5;
@@ -247,9 +262,6 @@ int main(void)
 
     // Calculate Mandelbrot set
     complex<float> pos(x_grid_min, y_grid_min);
-
-    size_t max_cycle_length = 0;
-    size_t min_cycle_length = res + 1;
 
     for (size_t x = 0; x < x_res; x++, pos += x_step_size)
     {
@@ -281,48 +293,29 @@ int main(void)
 
                 trajectory = new_points;
 
-                //if(trajectory.size() < min_cycle_length)
-                //    min_cycle_length = trajectory.size();
+ 
 
-                //if (trajectory.size() > max_cycle_length)
-                //    max_cycle_length = trajectory.size();
-
-                if (trajectory.size() > 20)
+                if (trajectory.size() > cap_size)
                     trajectory.resize(20);
 
-                double t = static_cast<float>(trajectory.size()) / static_cast<float>(20);
+                double t = static_cast<float>(trajectory.size()) / static_cast<float>(cap_size);
 
                 RGB rgb = HSBtoRGB(static_cast<unsigned short>(300.f * t), 75, 100);
 
-               
-                pixel_data[3 * (y * x_res + x) + 0] = rgb.r;
-                pixel_data[3 * (y * x_res + x) + 1] = rgb.g;
-                pixel_data[3 * (y * x_res + x) + 2] = rgb.b;
+                pixel_data[3 * (y * x_res + x) + 0] = colours[trajectory.size() - 1].r;
+                pixel_data[3 * (y * x_res + x) + 1] = colours[trajectory.size() - 1].g;
+                pixel_data[3 * (y * x_res + x) + 2] = colours[trajectory.size() - 1].b;
 
-               //cout << new_points.size() << " of " << trajectory.size() << endl;
+                //pixel_data[3 * (y * x_res + x) + 0] = rgb.r;
+                //pixel_data[3 * (y * x_res + x) + 1] = rgb.g;
+                //pixel_data[3 * (y * x_res + x) + 2] = rgb.b;
+
+
 			}
-
-            //// Truncate
-            //if (magnitude > threshold)
-            //    magnitude = threshold;
-            //else
-            //    magnitude = 0;
-
-            //// Normalize
-            //magnitude /= threshold;
-
-            //// Invert
-            //magnitude = 1 - magnitude;
-
-            //pixel_data[3 * (y * x_res + x) + 0] = static_cast<unsigned char>(255 * magnitude);
-            //pixel_data[3 * (y * x_res + x) + 1] = 0;// static_cast<unsigned char>(255 * magnitude);;
-            //pixel_data[3 * (y * x_res + x) + 2] = 0;// static_cast<unsigned char>(255 * magnitude);;
         }
     }
 
-    //cout << min_cycle_length << endl;
-    //cout << max_cycle_length << endl;
-
     write_RGB_tga("out.tga", x_res, y_res, pixel_data);
 
+    return 0;
 }
