@@ -7,6 +7,25 @@
 using namespace std;
 
 
+class grid_parameters
+{
+public:
+
+    grid_parameters(float src_x_grid_min, float src_x_grid_max, float src_y_grid_min, float src_y_grid_max)
+    {
+        x_grid_min = src_x_grid_min;
+        x_grid_max = src_x_grid_max;
+        y_grid_min = src_y_grid_min;
+        y_grid_max = src_y_grid_max;
+    }
+
+    float x_grid_max;
+    float x_grid_min;
+    float y_grid_max;
+    float y_grid_min;
+};
+
+
 inline float iterate_mandelbrot(
     vector<complex<float>>& trajectory,
     const complex<float> C,
