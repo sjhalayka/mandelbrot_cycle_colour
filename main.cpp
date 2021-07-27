@@ -339,7 +339,7 @@ int main(void)
         colours[14].g = White.g;
         colours[14].b = Black.b;
 
-        colours[15].r = Black.r;
+        colours[15].r = Black.r;    
         colours[15].g = Black.g;
         colours[15].b = Black.b;
         
@@ -355,14 +355,14 @@ int main(void)
     // Max TGA size is 65535x65535 pixels
     const unsigned short int res = 1000;
 
-    const float x_grid_max = 2;
+    const float x_grid_max = 1.25;
     const float x_grid_min = -2;
     const size_t x_res = res;
     const complex<float> x_step_size((x_grid_max - x_grid_min) / (x_res - 1), 0);
 
-    const float y_grid_max = 2;
-    const float y_grid_min = -2;
-    const size_t y_res = res;
+    const float y_grid_max = 1.25;
+    const float y_grid_min = -1.25;
+    const size_t y_res = static_cast<size_t>(static_cast<float>(x_res) / ((x_grid_max - x_grid_min) / (y_grid_max - y_grid_min)));
     const complex<float> y_step_size(0, (y_grid_max - y_grid_min) / (y_res - 1));
 
     const unsigned short int max_iterations = 5285;
