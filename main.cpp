@@ -277,7 +277,7 @@ int main(void)
         RGB LightMagenta(255, 128, 255);
         RGB Yellow(255, 255, 0);
         RGB Black(0, 0, 0);
-        RGB Gray(127, 127, 127);
+        RGB White(255, 255, 255);
 
         colours[0].r = Blue.r;
         colours[0].g = Blue.g;
@@ -335,13 +335,13 @@ int main(void)
         colours[13].g = Yellow.g;
         colours[13].b = Yellow.b;
 
-        colours[14].r = Black.r;
-        colours[14].g = Black.g;
+        colours[14].r = White.r;
+        colours[14].g = White.g;
         colours[14].b = Black.b;
 
-        colours[15].r = Gray.r;
-        colours[15].g = Gray.g;
-        colours[15].b = Gray.b;
+        colours[15].r = Black.r;
+        colours[15].g = Black.g;
+        colours[15].b = Black.b;
         
   
 
@@ -353,7 +353,7 @@ int main(void)
 
 
     // Max TGA size is 65535x65535 pixels
-    const unsigned short int res = 6000;
+    const unsigned short int res = 1000;
 
     const float x_grid_max = 2;
     const float x_grid_min = -2;
