@@ -33,6 +33,22 @@ inline float iterate_mandelbrot(
 class RGB
 {
 public:
+
+    RGB(void)
+    {
+        r = 0;
+        g = 0;
+        b = 0;
+    }
+
+    RGB(unsigned int src_r, unsigned int src_g, unsigned int src_b)
+    {
+        r = src_r;
+        g = src_g;
+        b = src_b;
+
+    }
+
     unsigned char r, g, b;
 };
 
@@ -153,7 +169,7 @@ RGB HSBtoRGB(unsigned short int hue_degree, unsigned char sat_percent, unsigned 
     else if (B > 255.0f)
         B = 255.0f;
 
-    RGB rgb;
+    RGB rgb(0, 0, 0);
 
     rgb.r = static_cast<unsigned char>(R);
     rgb.g = static_cast<unsigned char>(G);
@@ -227,15 +243,109 @@ void write_RGB_tga(const char* const filename, const size_t width, const size_t 
 
 int main(void)
 {
-    const size_t cap_size = 20;
+    const size_t cap_size = 16;
 
     vector<RGB> colours(cap_size);
 
     for (size_t i = 0; i < cap_size; i++)
     {
-        colours[i].r = rand() % 256;
-        colours[i].g = rand() % 256;
-        colours[i].b = rand() % 256;
+        //colours[i].r = rand() % 256;
+        //colours[i].g = rand() % 256;
+        //colours[i].b = rand() % 256;
+
+  //      double t = static_cast<float>(i + 1) / static_cast<float>(cap_size);
+
+  //      RGB rgb = HSBtoRGB(static_cast<unsigned short>(300.f * t), 75, 100);
+
+  //      colours[i].r = rgb.r;
+		//colours[i].g = rgb.g;
+		//colours[i].b = rgb.b;
+
+
+        RGB Blue(0, 0, 255);
+        RGB Green(0, 255, 0);
+        RGB Cyan(0, 255, 255);
+        RGB Red(255, 0, 0);
+        RGB Magenta(255, 0, 255);
+        RGB Brown(165, 42, 42);
+        RGB LightGray(211, 211, 211);
+        RGB DarkGray(169, 169, 169);
+        RGB LightBlue(173, 216, 230);
+        RGB LightGreen(144, 238, 144);
+        RGB LightCyan(224, 255, 255);
+        RGB LightRed(240, 128, 128);
+        RGB LightMagenta(255, 128, 255);
+        RGB Yellow(255, 255, 0);
+        RGB Black(0, 0, 0);
+        RGB Gray(127, 127, 127);
+
+        colours[0].r = Blue.r;
+        colours[0].g = Blue.g;
+        colours[0].b = Blue.b;
+
+        colours[1].r = Green.r;
+        colours[1].g = Green.g;
+        colours[1].b = Green.b;
+
+        colours[2].r = Cyan.r;
+        colours[2].g = Cyan.g;
+        colours[2].b =  Cyan.b;
+
+        colours[3].r = Red.r;
+        colours[3].g = Red.g;
+        colours[3].b = Red.b;
+
+        colours[4].r = Magenta.r;
+        colours[4].g = Magenta.g;
+        colours[4].b = Magenta.b;
+
+        colours[5].r = Brown.r;
+        colours[5].g = Brown.g;
+        colours[5].b = Brown.b;
+
+        colours[6].r = LightGray.r;
+        colours[6].g = LightGray.g;
+        colours[6].b = LightGray.b;
+
+        colours[7].r = DarkGray.r;
+        colours[7].g = DarkGray.g;
+        colours[7].b = DarkGray.b;
+
+        colours[8].r = LightBlue.r;
+        colours[8].g = LightBlue.g;
+        colours[8].b = LightBlue.b;
+
+        colours[9].r = LightGreen.r;
+        colours[9].g = LightGreen.g;
+        colours[9].b = LightGreen.b;
+
+        colours[10].r = LightCyan.r;
+        colours[10].g = LightCyan.g;
+        colours[10].b = LightCyan.b;
+
+        colours[11].r = LightRed.r;
+        colours[11].g = LightRed.g;
+        colours[11].b = LightRed.b;
+
+        colours[12].r = LightMagenta.r;
+        colours[12].g = LightMagenta.g;
+        colours[12].b = LightMagenta.b;
+
+        colours[13].r = Yellow.r;
+        colours[13].g = Yellow.g;
+        colours[13].b = Yellow.b;
+
+        colours[14].r = Black.r;
+        colours[14].g = Black.g;
+        colours[14].b = Black.b;
+
+        colours[15].r = Gray.r;
+        colours[15].g = Gray.g;
+        colours[15].b = Gray.b;
+        
+  
+
+
     }
 
 
@@ -243,10 +353,10 @@ int main(void)
 
 
     // Max TGA size is 65535x65535 pixels
-    const unsigned short int res = 1000;
+    const unsigned short int res = 6000;
 
-    const float x_grid_max = 1.5;
-    const float x_grid_min = -2.5;
+    const float x_grid_max = 2;
+    const float x_grid_min = -2;
     const size_t x_res = res;
     const complex<float> x_step_size((x_grid_max - x_grid_min) / (x_res - 1), 0);
 
@@ -255,7 +365,7 @@ int main(void)
     const size_t y_res = res;
     const complex<float> y_step_size(0, (y_grid_max - y_grid_min) / (y_res - 1));
 
-    const unsigned short int max_iterations = 2000;
+    const unsigned short int max_iterations = 5285;
     const float threshold = 2.0f;
 
     vector<unsigned char> pixel_data(3 * x_res * y_res, 0);
@@ -277,9 +387,9 @@ int main(void)
 
             if (magnitude >= threshold)
             {
-                pixel_data[3 * (y * x_res + x) + 0] = 0;
-				pixel_data[3 * (y * x_res + x) + 1] = 0;
-				pixel_data[3 * (y * x_res + x) + 2] = 0;
+                pixel_data[3 * (y * x_res + x) + 0] = 255;
+				pixel_data[3 * (y * x_res + x) + 1] = 255;
+				pixel_data[3 * (y * x_res + x) + 2] = 255;
 			}
 			else
 			{
@@ -293,24 +403,12 @@ int main(void)
 
                 trajectory = new_points;
 
- 
-
                 if (trajectory.size() > cap_size)
-                    trajectory.resize(20);
-
-                double t = static_cast<float>(trajectory.size()) / static_cast<float>(cap_size);
-
-                RGB rgb = HSBtoRGB(static_cast<unsigned short>(300.f * t), 75, 100);
+                    trajectory.resize(cap_size);
 
                 pixel_data[3 * (y * x_res + x) + 0] = colours[trajectory.size() - 1].r;
                 pixel_data[3 * (y * x_res + x) + 1] = colours[trajectory.size() - 1].g;
                 pixel_data[3 * (y * x_res + x) + 2] = colours[trajectory.size() - 1].b;
-
-                //pixel_data[3 * (y * x_res + x) + 0] = rgb.r;
-                //pixel_data[3 * (y * x_res + x) + 1] = rgb.g;
-                //pixel_data[3 * (y * x_res + x) + 2] = rgb.b;
-
-
 			}
         }
     }
