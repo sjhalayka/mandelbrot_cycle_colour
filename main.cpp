@@ -209,7 +209,7 @@ int main(void)
 	}
 
 	// Max TGA size is 65535x65535 pixels
-	const unsigned short int res = 2000;
+	const unsigned short int res = 1000;
 
 	const size_t x_res = res;
 
